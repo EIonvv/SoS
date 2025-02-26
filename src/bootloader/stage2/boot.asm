@@ -1,26 +1,13 @@
-org 0x0
+org 0x7C00
 bits 16
 
 
 %define ENDL 0x0D, 0x0A
-start:
-    ; print hello world message
-    mov si, msg_hello_kernel
-    call puts
+%define STAGE2_ADDR 0x7D00
 
-    ; jmp to main 
-
-    mov ax, 0x7C00
-    mov ds, ax
-    mov es, ax
-    mov ss, ax
-    mov sp, 0x7C00              ; stack grows downwards from where we are loaded in memory
-    
-    ; setup stack
-    mov ss, ax
-    mov sp, 0x7C00              ; stack grows downwards from where we are loaded in memory
+stage2_payload:
     ; print hello world message
-    mov si, msg_hello_kernel
+    mov si, msg_hello_23
     call puts
 
 .halt:
@@ -53,8 +40,6 @@ puts:
     pop bx
     pop ax
     pop si    
-
-    ; jmp to 
     ret
 
-msg_hello_kernel: db 'Hello world from KERNEL!', ENDL, 0
+msg_hello_23: db 'Big ole juicy test.', ENDL, 0

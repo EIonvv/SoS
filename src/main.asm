@@ -3,15 +3,18 @@ bits 16
 
 %define ENDL 0x0D, 0x0A
 
-start:
-    mov ax, 0
+main:
+    ; setup data segments
+    mov ax, 0           ; can't set ds/es directly
     mov ds, ax
     mov es, ax
-    mov ss, ax
-    mov sp, 0x7C00
     
-    cld
-    mov si, msg_hello
+    ; setup stack
+    mov ss, ax
+    mov sp, 0x7C00              ; stack grows downwards from where we are loaded in memory
+
+    ; print hello world message
+    mov si, msg_hello_kernel
     call puts
     
 .hlt:
@@ -36,8 +39,6 @@ puts:
     pop bx
     pop ax
     ret
-
-msg_hello db 'Hello, World!', ENDL, 0   
 
 times 510 - ($-$$) db 0
 dw 0xAA55

@@ -97,6 +97,7 @@ start:
     jz .root_dir_after
     inc ax                              ; division remainder != 0, add 1
                                         ; this means we have a sector only partially filled with entries
+                                        
 .root_dir_after:
 
     ; read root directory
