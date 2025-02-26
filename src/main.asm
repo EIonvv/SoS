@@ -1,6 +1,8 @@
 org 0x7C00
 bits 16
 
+%define ENDL 0x0D, 0x0A
+
 start:
     mov ax, 0
     mov ds, ax
@@ -35,7 +37,7 @@ puts:
     pop ax
     ret
 
-msg_hello db 'Hello, World!', 0xD, 0xA, 0
+msg_hello db 'Hello, World!', ENDL, 0   
 
 times 510 - ($-$$) db 0
 dw 0xAA55
